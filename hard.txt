@@ -1,0 +1,10 @@
+electricity
+donkey
+hardware
+microwave
+electronic
+merchant
+communication
+collaboration
+threshold
+technical
