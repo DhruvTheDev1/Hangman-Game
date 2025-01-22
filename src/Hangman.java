@@ -80,6 +80,10 @@ public class Hangman {
     return this.guessedLetters.contains(guess);
   }
 
+  public Set<Character> getGuessedLetters() {
+    return this.guessedLetters;
+}
+
   public boolean wordGuessed() { // entire word guessed
     return currentWordState.toString().equals(currentWord);
   }

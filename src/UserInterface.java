@@ -37,19 +37,27 @@ public class UserInterface {
 
       } else {
         System.out.println("Please enter a valid input");
-        continue; 
+        continue;
       }
       System.out.println("");
-
 
       hangman.readWord(userChoice);
       playGame();
 
-      System.out.println("Do you want to play again? (yes/no)");
-      String playAgain = scanner.nextLine().toLowerCase();
-      if (playAgain.equals("no")) {
-        System.out.println("Goodbye!");
-        break;
+      while (true) {
+        System.out.println("Do you want to play again? (yes/no)");
+        String playAgain = scanner.nextLine().toLowerCase();
+        if (playAgain.isEmpty()) {
+          System.out.println("Please enter a valid choice!"); 
+        } else if (playAgain.equals("no") || playAgain.startsWith("n")) {
+          System.out.println("Goodbye!");
+          return; // stops game
+        } else if (playAgain.equals("yes") || playAgain.startsWith("y")) {
+          hangman.getGuessedLetters().clear(); // clears guessed letters for next game
+          break; 
+        } else {
+          System.out.println("Please enter a valid choice!"); 
+        }
       }
     }
   }
@@ -74,21 +82,21 @@ public class UserInterface {
         continue;
       }
 
-    if (hangman.makeGuess(guess)) {
-      System.out.println("Correct guess");
-    } else {
-      System.out.println("Incorrect guess");
-    }
+      if (hangman.makeGuess(guess)) {
+        System.out.println("Correct guess");
+      } else {
+        System.out.println("Incorrect guess");
+      }
 
-    if (hangman.wordGuessed()) {
-      System.out.println("Congratulations! You win! The word was: " + hangman.getWord());
-      hangman.incrementPlayerWins();
-      break;  
-  } else if (hangman.getChances() == 0) {
-      System.out.println("Game Over! You lose. The word was: " + hangman.getWord());
-      hangman.incrementAIWins();
-      break;  
-  }
+      if (hangman.wordGuessed()) {
+        System.out.println("Congratulations! You win! The word was: " + hangman.getWord());
+        hangman.incrementPlayerWins();
+        break;
+      } else if (hangman.getChances() == 0) {
+        System.out.println("Game Over! You lose. The word was: " + hangman.getWord());
+        hangman.incrementAIWins();
+        break;
+      }
     }
 
     System.out.println("Scores: ");
